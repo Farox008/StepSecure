@@ -1,0 +1,7 @@
+{
+  "name": "StepSecure",
+  "description": "Gait-based employee identification and security monitoring system for real-time CCTV analysis.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

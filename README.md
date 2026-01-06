@@ -1,110 +1,57 @@
-StepSecure
+# 🚶‍♂️ StepSecure
 
-StepSecure is a gait-based employee identification system that works using CCTV video feeds.
-It identifies people by the way they walk (gait) and determines whether they are an employee or an intruder.
+StepSecure is a real-time gait recognition system that identifies employees using CCTV footage by analyzing how they walk.  
+It differentiates between employees and intruders in a contactless and non-intrusive way using gait patterns.
 
-The system uses pose estimation and deep learning to analyze walking patterns and shows results on a web dashboard.
+---
 
-What the Project Does
+## 🔍 What It Does
 
-Uses CCTV or video input
+- Processes CCTV or video input (MP4 / RTSP)
+- Extracts human pose keypoints from video
+- Uses a deep learning model (GaitNet) to generate gait embeddings
+- Identifies employees based on walking patterns
+- Flags unknown individuals as Intruders
+- Displays results on a modern web dashboard
 
-Detects people and analyzes how they walk
+---
 
-Identifies employees using gait patterns
+## ⚙️ Tech Stack
 
-Labels unknown people as Intruder
+- Python
+- OpenCV
+- MediaPipe / OpenPose
+- PyTorch (GaitNet)
+- FastAPI
+- PostgreSQL + pgvector (Supabase)
+- React + Tailwind CSS
 
-Shows live alerts and logs on a website
+---
 
-How It Works (Simple)
+## 🚀 How It Works
 
-CCTV video is captured
+1. Capture video from CCTV
+2. Extract 33 body keypoints per frame
+3. Convert walking motion into a 128-dimensional gait embedding
+4. Compare the embedding with stored employee embeddings
+5. Display result as Employee or Intruder
 
-Body keypoints are extracted from each frame
+---
 
-GaitNet model converts walking motion into a 128-dimensional vector
+## ▶️ Quick Start
 
-The vector is compared with stored employee data
-
-Result is shown as:
-
-Employee name with confidence
-
-OR Intruder alert
-
-Dataset Structure
-
-Each employee has multiple angles and videos:
-
-dataset/
-├── emp1/
-│   ├── angle1/
-│   │   ├── video1.mp4
-│   │   ├── video2.mp4
-│   ├── angle2/
-│   │   ├── video1.mp4
-│   │   ├── video2.mp4
-├── emp2/
-│   ├── angle1/
-│   ├── angle2/
-
-Technologies Used
-
-Python
-
-OpenCV
-
-MediaPipe / OpenPose
-
-PyTorch (GaitNet)
-
-FastAPI
-
-Supabase (PostgreSQL + pgvector)
-
-React + Tailwind (Website)
-
-Main Features
-
-Live CCTV monitoring
-
-Employee identification
-
-Intruder detection
-
-Confidence score display
-
-Alert and event logging
-
-Simple and modern dashboard
-
-How to Run (Basic)
-
-Create virtual environment
-
+```bash
+# Create virtual environment
 python -m venv venv
 
-
-Activate environment
-
+# Activate environment
 venv\Scripts\activate
 
-
-Install dependencies
-
+# Install dependencies
 pip install -r requirements.txt
 
-
-Train the model
-
+# Train the model
 python train_gaitnet.py
 
-
-Run live recognition
-
+# Run live recognition
 python live_recognition.py
-
-Project Goal
-
-To build a non-intrusive, contactless, and real-time identification system using walking patterns instead of faces or physical authentication.

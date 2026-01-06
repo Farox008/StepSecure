@@ -1,25 +1,110 @@
-<<<<<<< HEAD
-# StepSecure
-This project help to enhance security tha identifies individuals by using the indivduals walking pattern. This project combines computer vision, deep learning, and a modern web dashboard to provide real time monitoring and unauthorized intruder detection.
-=======
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+StepSecure
 
-# Run and deploy your AI Studio app
+StepSecure is a gait-based employee identification system that works using CCTV video feeds.
+It identifies people by the way they walk (gait) and determines whether they are an employee or an intruder.
 
-This contains everything you need to run your app locally.
+The system uses pose estimation and deep learning to analyze walking patterns and shows results on a web dashboard.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1KXC8KrSclEulaQTGBoUr5DyMKESXcfAc
+What the Project Does
 
-## Run Locally
+Uses CCTV or video input
 
-**Prerequisites:**  Node.js
+Detects people and analyzes how they walk
+
+Identifies employees using gait patterns
+
+Labels unknown people as Intruder
+
+Shows live alerts and logs on a website
+
+How It Works (Simple)
+
+CCTV video is captured
+
+Body keypoints are extracted from each frame
+
+GaitNet model converts walking motion into a 128-dimensional vector
+
+The vector is compared with stored employee data
+
+Result is shown as:
+
+Employee name with confidence
+
+OR Intruder alert
+
+Dataset Structure
+
+Each employee has multiple angles and videos:
+
+dataset/
+├── emp1/
+│   ├── angle1/
+│   │   ├── video1.mp4
+│   │   ├── video2.mp4
+│   ├── angle2/
+│   │   ├── video1.mp4
+│   │   ├── video2.mp4
+├── emp2/
+│   ├── angle1/
+│   ├── angle2/
+
+Technologies Used
+
+Python
+
+OpenCV
+
+MediaPipe / OpenPose
+
+PyTorch (GaitNet)
+
+FastAPI
+
+Supabase (PostgreSQL + pgvector)
+
+React + Tailwind (Website)
+
+Main Features
+
+Live CCTV monitoring
+
+Employee identification
+
+Intruder detection
+
+Confidence score display
+
+Alert and event logging
+
+Simple and modern dashboard
+
+How to Run (Basic)
+
+Create virtual environment
+
+python -m venv venv
 
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
->>>>>>> efb5530 (Initial commit)
+Activate environment
+
+venv\Scripts\activate
+
+
+Install dependencies
+
+pip install -r requirements.txt
+
+
+Train the model
+
+python train_gaitnet.py
+
+
+Run live recognition
+
+python live_recognition.py
+
+Project Goal
+
+To build a non-intrusive, contactless, and real-time identification system using walking patterns instead of faces or physical authentication.

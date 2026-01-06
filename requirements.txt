@@ -1,0 +1,12 @@
+torch>=1.12.0
+torchvision
+opencv-python
+mediapipe
+numpy
+tqdm
+scikit-learn
+faiss-cpu
+flask
+flask-sock
+python-dotenv
+matplotlib

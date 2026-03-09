@@ -49,16 +49,16 @@ The intelligence of StepSecure resides in a local FastAPI Python server located 
 
 The pipeline comprises four key components:
 
-### 1. Person Detection (YOLOv8)
-The server uses the state-of-the-art **YOLOv8 nano** (`yolov8n.pt`) object detection model from Ultralytics.
-- When an RTSP stream is being monitored or a video is being tested, YOLO scans every frame.
-- It is specifically filtered to only look for `class=[0]` (Persons).
-- It ignores vehicles, animals, and background motion, providing highly accurate bounding boxes.
+### 1. Person Detection, Skeletons, & Silhouettes (YOLOv8 Portfolio)
+The server uses a combination of state-of-the-art **YOLOv8 nano** models from Ultralytics depending on the visual mode selected:
+- **Standard Detection (`yolov8n.pt`)**: Scans every frame specifically looking for `class=[0]` (Persons), drawing highly accurate bounding boxes. It ignores vehicles, animals, and background motion.
+- **Skeleton Tracking (`yolov8n-pose.pt`)**: When pose estimation is needed, this model detects exactly 17 human keypoints (eyes, nose, shoulders, elbows, knees, etc.). It draws a "skeleton" over the person, allowing the system to understand posture, gait, and if someone is falling or loitering dynamically.
+- **Silhouette Tracking (`yolov8n-seg.pt`)**: When pixel-perfect accuracy is needed, the segmentation model is used. Instead of a rigid box, it draws a tight, contoured polygon around the exact shape of a person's body (their silhouette), perfectly isolating them from the background.
 
 ### 2. Multi-Object Tracking (ByteTrack)
-Because YOLO only finds boxes in a *single frame*, the system uses **ByteTrack**.
+Because YOLO only finds boxes/skeletons/silhouettes in a *single frame*, the system uses **ByteTrack** to link them through time.
 - ByteTrack assigns a persistent unique ID to every person it detects.
-- It tracks that person as they walk entirely across the frame.
+- It tracks that person's skeleton or silhouette as they walk entirely across the frame.
 - **RTSP Monitoring Loop**: When a person is tracked for more than 30 consecutive frames, the system groups those frames into a "Clip" and sends it to the identity extractor.
 
 ### 3. Feature Extraction (OpenCV Color Histograms)
